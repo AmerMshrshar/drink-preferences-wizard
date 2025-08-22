@@ -1,12 +1,11 @@
 import React from "react";
-import "./SummaryStep.css";
 
 const SummaryStep = ({ data }) => {
   return (
     <div className="summary-container">
       <h3>Review Your Information</h3>
-      <div className="summary-section">
-        <h4>Personal Information</h4>
+      <div className="content-box">
+        <h4 className="content-box-title">Personal Information</h4>
         <p>
           <strong>First Name:</strong> {data.firstName}
         </p>
@@ -20,8 +19,8 @@ const SummaryStep = ({ data }) => {
           <strong>Phone:</strong> {data.phone}
         </p>
       </div>
-      <div className="summary-section">
-        <h4>Drink Preferences</h4>
+      <div className="content-box">
+        <h4 className="content-box-title">Drink Preferences</h4>
         <p>
           <strong>Category:</strong> {data.drinkCategory || "Not selected"}
         </p>

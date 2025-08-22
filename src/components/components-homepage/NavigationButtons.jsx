@@ -1,5 +1,4 @@
 import React from "react";
-import "./NavigationButtons.css";
 
 const NavigationButtons = ({ currentStep, totalSteps, onNext, onBack }) => {
   const isFirstStep = currentStep === 0;

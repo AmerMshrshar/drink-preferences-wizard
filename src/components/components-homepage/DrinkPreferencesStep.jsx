@@ -1,8 +1,8 @@
 import React from "react";
-import Select from "../../../components/common/Select/Select";
-import { useDrinkApi } from "../hooks/useDrinkApi";
+import Select from "../common/Select";
+import { useDrinkApi } from "../../ts/HooksHome/useDrinkApi";
 
-const DrinkPreferencesStep = ({ data, onFieldChange }) => {
+const DrinkPreferencesStep = ({ data, onFieldChange, errors }) => {
   const {
     categories,
     alcoholicTypes,
@@ -13,7 +13,7 @@ const DrinkPreferencesStep = ({ data, onFieldChange }) => {
   } = useDrinkApi();
 
   if (error) {
-    return <p className="error-message">{error}</p>;
+    return <p className="alert alert-danger">{error}</p>;
   }
 
   return (
@@ -26,6 +26,9 @@ const DrinkPreferencesStep = ({ data, onFieldChange }) => {
         options={categories}
         loading={loading}
       />
+      {errors.drinkCategory && (
+        <span className="error-text">{errors.drinkCategory}</span>
+      )}
       <Select
         label="Alcoholic Types"
         name="alcoholicType"
@@ -34,6 +37,9 @@ const DrinkPreferencesStep = ({ data, onFieldChange }) => {
         options={alcoholicTypes}
         loading={loading}
       />
+      {errors.alcoholicType && (
+        <span className="error-text">{errors.alcoholicType}</span>
+      )}
       <Select
         label="Glass Types"
         name="glassType"
@@ -42,6 +48,9 @@ const DrinkPreferencesStep = ({ data, onFieldChange }) => {
         options={glassTypes}
         loading={loading}
       />
+      {errors.glassType && (
+        <span className="error-text">{errors.glassType}</span>
+      )}
       <Select
         label="Drink Ingredient"
         name="drinkIngredient"
@@ -50,6 +59,9 @@ const DrinkPreferencesStep = ({ data, onFieldChange }) => {
         options={ingredients}
         loading={loading}
       />
+      {errors.drinkIngredient && (
+        <span className="error-text">{errors.drinkIngredient}</span>
+      )}
     </>
   );
 };

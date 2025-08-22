@@ -1,5 +1,4 @@
 import React from "react";
-import "./Select.css";
 
 const Select = ({ label, name, value, onChange, options, loading }) => {
   return (
@@ -10,7 +9,7 @@ const Select = ({ label, name, value, onChange, options, loading }) => {
         name={name}
         value={value}
         onChange={onChange}
-        className="form-select"
+        className="form-control form-select"
         disabled={loading}
       >
         <option value="">{loading ? "Loading..." : `Select ${label}`}</option>
