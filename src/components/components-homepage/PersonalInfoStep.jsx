@@ -1,11 +1,14 @@
 import React from "react";
 import Input from "../common/Input";
+import { useTranslation } from "../../contexts/LanguageContext";
 
 const PersonalInfoStep = ({ data, onFieldChange, errors }) => {
+  const { t } = useTranslation("homepage");
+
   return (
     <>
       <Input
-        label="First Name"
+        label={t("personalInfo.firstName")}
         name="firstName"
         value={data.firstName}
         onChange={onFieldChange}
@@ -13,17 +16,19 @@ const PersonalInfoStep = ({ data, onFieldChange, errors }) => {
       />
       {errors.firstName && (
         <span className="error-text">{errors.firstName}</span>
-      )}{" "}
+      )}
+
       <Input
-        label="Last Name"
+        label={t("personalInfo.lastName")}
         name="lastName"
         value={data.lastName}
         onChange={onFieldChange}
         required
       />
       {errors.lastName && <span className="error-text">{errors.lastName}</span>}
+
       <Input
-        label="Email"
+        label={t("personalInfo.email")}
         name="email"
         type="email"
         value={data.email}
@@ -31,8 +36,9 @@ const PersonalInfoStep = ({ data, onFieldChange, errors }) => {
         required
       />
       {errors.email && <span className="error-text">{errors.email}</span>}
+
       <Input
-        label="Phone"
+        label={t("personalInfo.phone")}
         name="phone"
         type="tel"
         value={data.phone}

@@ -1,14 +1,40 @@
 import { useState, useEffect, useCallback } from "react";
 
-const fetchApiList = async (param) => {
+interface DrinkOptions {
+  categories: string[];
+  alcoholicTypes: string[];
+  glassTypes: string[];
+  ingredients: string[];
+}
+
+interface UseDrinkApiReturn extends DrinkOptions {
+  loading: boolean;
+  error: string | null;
+  refetch: () => Promise<void>;
+}
+
+type DrinkListItem = {
+  [key: string]: string;
+};
+
+type ApiResponse = {
+  drinks: DrinkListItem[];
+};
+
+const fetchApiList = async (param: string): Promise<string[]> => {
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
   try {
-    const response = await fetch(
-      `https://www.thecocktaildb.com/api/json/v1/1/list.php?${param}=list`
-    );
+    const response = await fetch(`${baseUrl}/list.php?${param}=list`);
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const data = await response.json();
+    const data = (await response.json()) as ApiResponse;
+
+    if (!data.drinks) {
+      return [];
+    }
 
     return data.drinks.map((item) => Object.values(item)[0]);
   } catch (error) {
@@ -17,15 +43,15 @@ const fetchApiList = async (param) => {
   }
 };
 
-export const useDrinkApi = () => {
-  const [options, setOptions] = useState({
+export const useDrinkApi = (): UseDrinkApiReturn => {
+  const [options, setOptions] = useState<DrinkOptions>({
     categories: [],
     alcoholicTypes: [],
     glassTypes: [],
     ingredients: [],
   });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchAllOptions = useCallback(async () => {
     setLoading(true);

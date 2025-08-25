@@ -1,0 +1,14 @@
+{
+  "navigation": {
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "continue": "Continue"
+  },
+  "buttons": {
+    "back": "Back",
+    "next": "Next"
+  }
+}

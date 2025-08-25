@@ -1,0 +1,37 @@
+{
+  "steps": {
+    "step1Title": "الخطوة 1: المعلومات الشخصية",
+    "step2Title": "الخطوة 2: تفضيلات المشروبات",
+    "step3Title": "الخطوة 3: الملخص",
+    "stepIndicator": "الخطوة {{current}} من {{total}}"
+  },
+  "personalInfo": {
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف"
+  },
+  "drinkPreferences": {
+    "drinkCategory": "فئة المشروب",
+    "alcoholicTypes": "أنواع الكحول",
+    "glassTypes": "أنواع الكؤوس",
+    "drinkIngredient": "مكون المشروب",
+    "error": "فشل في تحميل خيارات المشروبات. يرجى المحاولة مرة أخرى لاحقاً."
+  },
+  "summary": {
+    "reviewTitle": "مراجعة معلوماتك",
+    "personalInfoSection": "المعلومات الشخصية",
+    "drinkPreferencesSection": "تفضيلات المشروبات",
+    "notSelected": "غير محدد",
+    "labels": {
+      "firstName": "الاسم الأول:",
+      "lastName": "اسم العائلة:",
+      "email": "البريد الإلكتروني:",
+      "phone": "الهاتف:",
+      "category": "الفئة:",
+      "alcoholicType": "نوع الكحول:",
+      "glassType": "نوع الكأس:",
+      "ingredient": "المكون:"
+    }
+  }
+}

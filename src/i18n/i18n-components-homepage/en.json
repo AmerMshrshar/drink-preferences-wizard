@@ -1,0 +1,37 @@
+{
+  "steps": {
+    "step1Title": "Step 1: Personal Information",
+    "step2Title": "Step 2: Drink Preferences",
+    "step3Title": "Step 3: Summary",
+    "stepIndicator": "Step {{current}} of {{total}}"
+  },
+  "personalInfo": {
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone"
+  },
+  "drinkPreferences": {
+    "drinkCategory": "Drink Category",
+    "alcoholicTypes": "Alcoholic Types",
+    "glassTypes": "Glass Types",
+    "drinkIngredient": "Drink Ingredient",
+    "error": "Failed to load drink options. Please try again later."
+  },
+  "summary": {
+    "reviewTitle": "Review Your Information",
+    "personalInfoSection": "Personal Information",
+    "drinkPreferencesSection": "Drink Preferences",
+    "notSelected": "Not selected",
+    "labels": {
+      "firstName": "First Name:",
+      "lastName": "Last Name:",
+      "email": "Email:",
+      "phone": "Phone:",
+      "category": "Category:",
+      "alcoholicType": "Alcoholic Type:",
+      "glassType": "Glass Type:",
+      "ingredient": "Ingredient:"
+    }
+  }
+}

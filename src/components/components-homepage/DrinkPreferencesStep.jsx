@@ -1,8 +1,10 @@
 import React from "react";
 import Select from "../common/Select";
-import { useDrinkApi } from "../../ts/HooksHome/useDrinkApi";
+import { useDrinkApi } from "../../ts/HooksHome/useDrinkApi.ts";
+import { useTranslation } from "../../contexts/LanguageContext";
 
 const DrinkPreferencesStep = ({ data, onFieldChange, errors }) => {
+  const { t } = useTranslation("homepage");
   const {
     categories,
     alcoholicTypes,
@@ -13,13 +15,13 @@ const DrinkPreferencesStep = ({ data, onFieldChange, errors }) => {
   } = useDrinkApi();
 
   if (error) {
-    return <p className="alert alert-danger">{error}</p>;
+    return <p className="alert alert-danger">{t("drinkPreferences.error")}</p>;
   }
 
   return (
     <>
       <Select
-        label="Drink Category"
+        label={t("drinkPreferences.drinkCategory")}
         name="drinkCategory"
         value={data.drinkCategory}
         onChange={onFieldChange}
@@ -29,8 +31,9 @@ const DrinkPreferencesStep = ({ data, onFieldChange, errors }) => {
       {errors.drinkCategory && (
         <span className="error-text">{errors.drinkCategory}</span>
       )}
+
       <Select
-        label="Alcoholic Types"
+        label={t("drinkPreferences.alcoholicTypes")}
         name="alcoholicType"
         value={data.alcoholicType}
         onChange={onFieldChange}
@@ -40,8 +43,9 @@ const DrinkPreferencesStep = ({ data, onFieldChange, errors }) => {
       {errors.alcoholicType && (
         <span className="error-text">{errors.alcoholicType}</span>
       )}
+
       <Select
-        label="Glass Types"
+        label={t("drinkPreferences.glassTypes")}
         name="glassType"
         value={data.glassType}
         onChange={onFieldChange}
@@ -51,8 +55,9 @@ const DrinkPreferencesStep = ({ data, onFieldChange, errors }) => {
       {errors.glassType && (
         <span className="error-text">{errors.glassType}</span>
       )}
+
       <Select
-        label="Drink Ingredient"
+        label={t("drinkPreferences.drinkIngredient")}
         name="drinkIngredient"
         value={data.drinkIngredient}
         onChange={onFieldChange}

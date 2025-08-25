@@ -1,0 +1,14 @@
+{
+  "navigation": {
+    "back": "السابق",
+    "next": "التالي",
+    "submit": "إرسال",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "continue": "متابعة"
+  },
+  "buttons": {
+    "back": "السابق",
+    "next": "التالي"
+  }
+}

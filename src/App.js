@@ -1,8 +1,12 @@
-import React from 'react';
-import AppRoutes from './routes/AppRoutes';
+import React from "react";
+import { LanguageProvider } from "./contexts/LanguageContext";
+import AppRoutes from "./routes/AppRoutes";
+
 function App() {
   return (
-    <AppRoutes />
+    <LanguageProvider>
+      <AppRoutes />
+    </LanguageProvider>
   );
 }
 
