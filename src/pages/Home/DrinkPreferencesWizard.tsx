@@ -6,8 +6,7 @@ import SummaryStep from "../../components/components-homepage/SummaryStep";
 import BackButton from "../../components/components/BackButton";
 import NextButton from "../../components/components/NextButton";
 import LanguageSwitcher from "../../components/common/LanguageSwitcher";
-import { useTranslation } from "../../contexts/LanguageContext";
-import useDrinkApi from "../../ts/HooksHome/useDrinkApi";
+import { useTranslation, useLanguage } from "../../contexts/LanguageContext";
 
 interface FormData {
   firstName: string;
@@ -24,13 +23,15 @@ type FormErrors = Partial<Record<keyof FormData, string>>;
 
 export interface StepComponentProps {
   data: FormData;
-  onFieldChange: (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  onFieldChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
   errors: FormErrors;
 }
 
 interface Step {
   title: string;
-  component: FC<StepComponentProps>;
+  component: React.FC<StepComponentProps>;
 }
 
 const initialFormData: FormData = {
@@ -44,9 +45,10 @@ const initialFormData: FormData = {
   drinkIngredient: "",
 };
 
-const DrinkPreferencesWizard: FC = () => {
+const DrinkPreferencesWizard: React.FC = () => {
   const { t } = useTranslation("homepage");
   const { t: tCommon } = useTranslation("common");
+  const { isRTL } = useLanguage();
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [errors, setErrors] = useState<FormErrors>({});
@@ -58,7 +60,7 @@ const DrinkPreferencesWizard: FC = () => {
   ];
 
   const handleFieldChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     const fieldName = name as keyof FormData;
@@ -90,8 +92,6 @@ const DrinkPreferencesWizard: FC = () => {
     setCurrentStep((prevStep) => Math.max(prevStep - 1, 0));
     setErrors({});
   };
-
-  const CurrentStepComponent = steps[currentStep].component;
 
   const validateStep = (): FormErrors => {
     const {
@@ -181,38 +181,116 @@ const DrinkPreferencesWizard: FC = () => {
   const isFirstStep = currentStep === 0;
   const isLastStep = currentStep === steps.length - 1;
 
+  const getTransform = () => {
+    const percentage = currentStep * (100 / 3);
+    const offset = currentStep * 0.5;
+
+    if (isRTL) {
+      return `translateX(calc(${percentage}% - ${offset}rem))`;
+    } else {
+      return `translateX(calc(-${percentage}% + ${offset}rem))`;
+    }
+  };
+
   return (
     <>
       <div className="language-switcher-fixed">
         <LanguageSwitcher />
       </div>
 
-      <Card title={steps[currentStep].title}>
-        <div className="text-center text-muted text-italic mb-6">
-          {t("steps.stepIndicator", {
-            current: currentStep + 1,
-            total: steps.length,
-          })}
+      <div className="wizard-container">
+        <div className="wizard-progress">
+          <div className="progress-line">
+            <div
+              className="progress-fill"
+              style={{ height: `${((currentStep + 1) / steps.length) * 100}%` }}
+            ></div>
+          </div>
+          <div className="progress-steps">
+            {steps.map((step, index) => (
+              <div
+                key={index}
+                className={`progress-step ${
+                  index <= currentStep ? "active" : ""
+                }`}
+              >
+                <div className="step-circle">
+                  <span>{index + 1}</span>
+                </div>
+                <div className="step-label">{step.title}</div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <form onSubmit={(e) => e.preventDefault()}>
-          <CurrentStepComponent
-            data={formData}
-            onFieldChange={handleFieldChange}
-            errors={errors}
-          />
+        <div className="wizard-cards-container">
+          <div
+            className="wizard-cards-wrapper"
+            style={{
+              transform: getTransform(),
+            }}
+          >
+            {steps.map((step, index) => {
+              const StepComponent = step.component;
+              return (
+                <div
+                  key={index}
+                  className={`wizard-card-wrapper ${
+                    index === currentStep ? "active" : ""
+                  }`}
+                >
+                  <Card title={step.title}>
+                    <div className="text-center text-muted text-italic mb-6">
+                      {t("steps.stepIndicator", {
+                        current: index + 1,
+                        total: steps.length,
+                      })}
+                    </div>
 
-          <div className="navigation-buttons">
-            {!isFirstStep ? (
-              <BackButton onClick={handleBack} />
-            ) : (
-              <div className="navigation-spacer" aria-hidden="true"></div>
-            )}
+                    <form onSubmit={(e) => e.preventDefault()}>
+                      <StepComponent
+                        data={formData}
+                        onFieldChange={handleFieldChange}
+                        errors={errors}
+                      />
 
-            {!isLastStep && <NextButton onClick={handleNext} />}
+                      <div className="navigation-buttons">
+                        {!isFirstStep && index === currentStep ? (
+                          <BackButton onClick={handleBack} />
+                        ) : (
+                          <div
+                            className="navigation-spacer"
+                            aria-hidden="true"
+                          ></div>
+                        )}
+
+                        {!isLastStep && index === currentStep && (
+                          <NextButton onClick={handleNext} />
+                        )}
+                      </div>
+                    </form>
+                  </Card>
+                </div>
+              );
+            })}
           </div>
-        </form>
-      </Card>
+        </div>
+
+        <div className="wizard-navigation-dots">
+          {steps.map((_, index) => (
+            <div
+              key={index}
+              className={`nav-dot ${index === currentStep ? "active" : ""}`}
+              onClick={() => {
+                if (index < currentStep) {
+                  setCurrentStep(index);
+                  setErrors({});
+                }
+              }}
+            ></div>
+          ))}
+        </div>
+      </div>
     </>
   );
 };
