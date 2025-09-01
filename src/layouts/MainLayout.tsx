@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 
-const MainLayout = () => {
+const MainLayout: React.FC = () => {
   return (
     <main className="main-layout-container">
       <Outlet />

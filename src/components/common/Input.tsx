@@ -1,15 +1,23 @@
 import React from "react";
 
-const Input = ({
+interface InputProps {
+  label: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
+  numbersOnly?: boolean;
+}
+
+const Input: React.FC<InputProps> = ({
   label,
   name,
   value,
   onChange,
   type = "text",
-  placeholder,
   numbersOnly = false,
 }) => {
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (numbersOnly) {
       const numericValue = e.target.value.replace(/[^0-9]/g, "");
       e.target.value = numericValue;

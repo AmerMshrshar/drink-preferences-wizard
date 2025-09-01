@@ -1,6 +1,11 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
-const Card = ({ children, title }) => {
+interface CardProps {
+  children: ReactNode;
+  title?: string;
+}
+
+const Card: React.FC<CardProps> = ({ children, title }) => {
   return (
     <div className="card">
       {title && <h2 className="card-title">{title}</h2>}

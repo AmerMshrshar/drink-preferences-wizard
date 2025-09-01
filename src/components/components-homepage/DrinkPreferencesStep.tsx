@@ -1,10 +1,15 @@
 import React from "react";
-import Select from "../common/Select";
+import Select from "../common/Select.tsx";
 import { useDrinkApi } from "../../ts/HooksHome/useDrinkApi.ts";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { useTranslation } from "../../i18n/i18n.tsx";
+import type { StepComponentProps } from "../../types/wizard.ts";
 
-const DrinkPreferencesStep = ({ data, onFieldChange, errors }) => {
-  const { t } = useTranslation("homepage");
+const DrinkPreferencesStep: React.FC<StepComponentProps> = ({
+  data,
+  onFieldChange,
+  errors,
+}) => {
+  const { t } = useTranslation();
   const {
     categories,
     alcoholicTypes,
@@ -15,13 +20,13 @@ const DrinkPreferencesStep = ({ data, onFieldChange, errors }) => {
   } = useDrinkApi();
 
   if (error) {
-    return <p className="alert alert-danger">{t("drinkPreferences.error")}</p>;
+    return <p className="alert alert-danger">{t("drinkPreferences_error")}</p>;
   }
 
   return (
     <>
       <Select
-        label={t("drinkPreferences.drinkCategory")}
+        label={t("drinkPreferences_drinkCategory")}
         name="drinkCategory"
         value={data.drinkCategory}
         onChange={onFieldChange}
@@ -33,7 +38,7 @@ const DrinkPreferencesStep = ({ data, onFieldChange, errors }) => {
       )}
 
       <Select
-        label={t("drinkPreferences.alcoholicTypes")}
+        label={t("drinkPreferences_alcoholicTypes")}
         name="alcoholicType"
         value={data.alcoholicType}
         onChange={onFieldChange}
@@ -45,7 +50,7 @@ const DrinkPreferencesStep = ({ data, onFieldChange, errors }) => {
       )}
 
       <Select
-        label={t("drinkPreferences.glassTypes")}
+        label={t("drinkPreferences_glassTypes")}
         name="glassType"
         value={data.glassType}
         onChange={onFieldChange}
@@ -57,7 +62,7 @@ const DrinkPreferencesStep = ({ data, onFieldChange, errors }) => {
       )}
 
       <Select
-        label={t("drinkPreferences.drinkIngredient")}
+        label={t("drinkPreferences_drinkIngredient")}
         name="drinkIngredient"
         value={data.drinkIngredient}
         onChange={onFieldChange}

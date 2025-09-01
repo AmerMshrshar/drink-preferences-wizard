@@ -1,8 +1,24 @@
 import React from "react";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { useTranslation } from "../../i18n/i18n.tsx";
 
-const Select = ({ label, name, value, onChange, options, loading }) => {
-  const { t } = useTranslation("common");
+interface SelectProps {
+  label: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  options: string[];
+  loading: boolean;
+}
+
+const Select: React.FC<SelectProps> = ({
+  label,
+  name,
+  value,
+  onChange,
+  options,
+  loading,
+}) => {
+  const { t } = useTranslation();
 
   return (
     <div className="form-group">
@@ -16,7 +32,7 @@ const Select = ({ label, name, value, onChange, options, loading }) => {
         disabled={loading}
       >
         <option value="">
-          {loading ? t("select.loading") : t("select.selectOption", { label })}
+          {loading ? t("select_loading") : t("select_selectOption", { label })}
         </option>
         {options.map((option) => (
           <option key={option} value={option}>

@@ -240,10 +240,11 @@ body::after {
 .progress-steps {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   position: relative;
   z-index: 2;
-  height: 280px;
+  gap: var(--space-12); /* <--- تم التعديل هنا: إضافة فجوة بين العناصر */
+  /* justify-content: space-between; */ /* <--- تم حذف هذه الخاصية */
+  /* height: 280px; */ /* <--- تم حذف هذه الخاصية */
 }
 
 .progress-step {
@@ -343,7 +344,7 @@ body::after {
 }
 
 .wizard-navigation-dots {
-  flex: 0 0 30px;
+  flex: 0 0 160px;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
@@ -600,7 +601,7 @@ body::after {
 .form-group label {
   margin-bottom: var(--space-2);
   font-weight: 600;
-  color: var(--gray-700);
+  color: var(--text-color);
   font-size: var(--font-size-sm);
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -627,6 +628,8 @@ body::after {
 .form-select {
   background: rgba(255, 255, 255, 0.95);
   cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
   background-position: right 12px center;
   background-repeat: no-repeat;
@@ -651,7 +654,7 @@ body::after {
   font-size: var(--font-size-sm);
   margin-top: var(--space-2);
   font-weight: 600;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: var(--space-2);
   animation: errorShake 0.5s ease-out;
@@ -1137,12 +1140,14 @@ body::after {
     justify-content: space-between;
     width: 100%;
     height: auto;
+    gap: 0; /* <--- إعادة ضبط الفجوة للشاشات الأصغر */
   }
 
   .wizard-navigation-dots {
     flex-direction: row;
     height: auto;
     justify-content: center;
+    flex-basis: auto;
   }
 
   .wizard-cards-container {

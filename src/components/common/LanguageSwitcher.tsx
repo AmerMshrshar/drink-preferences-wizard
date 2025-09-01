@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useLanguage } from "../../contexts/LanguageContext";
+import { useLanguage } from "../../i18n/i18n.tsx";
 import "../../assets/LanguageSwitcher.css";
 
-const LanguageSwitcher = () => {
+const LanguageSwitcher: React.FC = () => {
   const { currentLanguage, changeLanguage, availableLanguages } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleLanguageChange = (languageCode) => {
+  const handleLanguageChange = (languageCode: string) => {
     changeLanguage(languageCode);
     setIsOpen(false);
   };
@@ -24,6 +24,8 @@ const LanguageSwitcher = () => {
       <button
         className="language-switcher-trigger"
         onClick={toggleDropdown}
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
         aria-label="Switch Language"
       >
         <span className="language-flag">{currentLang?.flag}</span>
@@ -33,10 +35,12 @@ const LanguageSwitcher = () => {
 
       {isOpen && (
         <div className="language-dropdown">
-          <div className="language-dropdown-content">
+          <div className="language-dropdown-content" role="listbox">
             {availableLanguages.map((language) => (
               <button
                 key={language.code}
+                role="option"
+                aria-selected={currentLanguage === language.code}
                 className={`language-option ${
                   currentLanguage === language.code ? "active" : ""
                 }`}

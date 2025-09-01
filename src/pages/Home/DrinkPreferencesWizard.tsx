@@ -1,38 +1,18 @@
 import React, { useState } from "react";
-import Card from "../../components/common/Card";
-import PersonalInfoStep from "../../components/components-homepage/PersonalInfoStep";
-import DrinkPreferencesStep from "../../components/components-homepage/DrinkPreferencesStep";
-import SummaryStep from "../../components/components-homepage/SummaryStep";
-import BackButton from "../../components/components/BackButton";
-import NextButton from "../../components/components/NextButton";
-import LanguageSwitcher from "../../components/common/LanguageSwitcher";
-import { useTranslation, useLanguage } from "../../contexts/LanguageContext";
-
-interface FormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  drinkCategory: string;
-  alcoholicType: string;
-  glassType: string;
-  drinkIngredient: string;
-}
-
-type FormErrors = Partial<Record<keyof FormData, string>>;
-
-export interface StepComponentProps {
-  data: FormData;
-  onFieldChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => void;
-  errors: FormErrors;
-}
-
-interface Step {
-  title: string;
-  component: React.FC<StepComponentProps>;
-}
+import Card from "../../components/common/Card.tsx";
+import PersonalInfoStep from "../../components/components-homepage/PersonalInfoStep.tsx";
+import DrinkPreferencesStep from "../../components/components-homepage/DrinkPreferencesStep.tsx";
+import SummaryStep from "../../components/components-homepage/SummaryStep.tsx";
+import BackButton from "../../components/components/BackButton.tsx";
+import NextButton from "../../components/components/NextButton.tsx";
+import LanguageSwitcher from "../../components/common/LanguageSwitcher.tsx";
+import { useTranslation, useLanguage } from "../../i18n/i18n.tsx";
+import {
+  FormData,
+  FormErrors,
+  Step,
+  StepComponentProps,
+} from "../../types/wizard.ts";
 
 const initialFormData: FormData = {
   firstName: "",
@@ -46,17 +26,16 @@ const initialFormData: FormData = {
 };
 
 const DrinkPreferencesWizard: React.FC = () => {
-  const { t } = useTranslation("homepage");
-  const { t: tCommon } = useTranslation("common");
+  const { t } = useTranslation();
   const { isRTL } = useLanguage();
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [errors, setErrors] = useState<FormErrors>({});
 
   const steps: Step[] = [
-    { title: t("steps.step1Title"), component: PersonalInfoStep },
-    { title: t("steps.step2Title"), component: DrinkPreferencesStep },
-    { title: t("steps.step3Title"), component: SummaryStep },
+    { title: t("steps_step1Title"), component: PersonalInfoStep },
+    { title: t("steps_step2Title"), component: DrinkPreferencesStep },
+    { title: t("steps_step3Title"), component: SummaryStep },
   ];
 
   const handleFieldChange = (
@@ -110,32 +89,32 @@ const DrinkPreferencesWizard: React.FC = () => {
         {
           condition: !firstName.trim(),
           field: "firstName" as const,
-          message: tCommon("validation.firstNameRequired"),
+          message: t("validation_firstNameRequired"),
         },
         {
           condition: !lastName.trim(),
           field: "lastName" as const,
-          message: tCommon("validation.lastNameRequired"),
+          message: t("validation_lastNameRequired"),
         },
         {
           condition: !email.trim(),
           field: "email" as const,
-          message: tCommon("validation.emailRequired"),
+          message: t("validation_emailRequired"),
         },
         {
           condition: email.trim() && !/\S+@\S+\.\S+/.test(email),
           field: "email" as const,
-          message: tCommon("validation.emailInvalid"),
+          message: t("validation_emailInvalid"),
         },
         {
           condition: !phone.trim(),
           field: "phone" as const,
-          message: tCommon("validation.phoneRequired"),
+          message: t("validation_phoneRequired"),
         },
         {
           condition: phone.trim() && !/^\d{8,15}$/.test(phone),
           field: "phone" as const,
-          message: tCommon("validation.phoneInvalid"),
+          message: t("validation_phoneInvalid"),
         },
       ];
 
@@ -150,22 +129,22 @@ const DrinkPreferencesWizard: React.FC = () => {
         {
           condition: !drinkCategory,
           field: "drinkCategory" as const,
-          message: tCommon("validation.drinkCategoryRequired"),
+          message: t("validation_drinkCategoryRequired"),
         },
         {
           condition: !alcoholicType,
           field: "alcoholicType" as const,
-          message: tCommon("validation.alcoholicTypeRequired"),
+          message: t("validation_alcoholicTypeRequired"),
         },
         {
           condition: !glassType,
           field: "glassType" as const,
-          message: tCommon("validation.glassTypeRequired"),
+          message: t("validation_glassTypeRequired"),
         },
         {
           condition: !drinkIngredient,
           field: "drinkIngredient" as const,
-          message: tCommon("validation.drinkIngredientRequired"),
+          message: t("validation_drinkIngredientRequired"),
         },
       ];
 
@@ -241,7 +220,7 @@ const DrinkPreferencesWizard: React.FC = () => {
                 >
                   <Card title={step.title}>
                     <div className="text-center text-muted text-italic mb-6">
-                      {t("steps.stepIndicator", {
+                      {t("steps_stepIndicator", {
                         current: index + 1,
                         total: steps.length,
                       })}
